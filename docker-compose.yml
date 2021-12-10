@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  job-runner:
+    build: .
+    container_name: job-runner
+    volumes:
+      - ./app:/app
