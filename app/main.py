@@ -12,8 +12,10 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 fmt = logging.Formatter("%(asctime)s %(levelname)-8s %(name)-30s %(message)s")
 sh = logging.StreamHandler(sys.stderr)
+file_logger = logging.FileHandler("app.log")
 sh.setFormatter(fmt)
 logger.addHandler(sh)
+logger.addHandler(file_logger)
 
 
 def main():
@@ -33,7 +35,7 @@ def main():
                     logger.warning(f"Job w. type {job.type} is not supported yet.")
                 ORM.update_job(job)
             logger.info("Waiting for jobs zZzZzZzzzZZz")
-            sleep(1)
+            sleep(6)
         except Exception as e:
             logger.exception(str(e))
             sleep(60)
