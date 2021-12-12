@@ -15,7 +15,7 @@ services:
     command: logstash -f /logstash.conf
     ports:
       - "9200:9200"
-    container_name: logstash-service
+    container_name: logstash-service-job-runner
     env_file:
       - ./app/.env
     volumes:
