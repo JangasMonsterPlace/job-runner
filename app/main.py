@@ -1,5 +1,6 @@
 import logging
 import sys
+import json
 
 from kafka import producer
 from orm import ORM
@@ -21,11 +22,12 @@ def main():
         try:
             jobs = ORM.get_jobs_to_execute()
             for job in jobs:
+                msg = json.dumps({"id": job.id, "info": job.info})
                 if job.type == "source":
-                    producer.produce("jobs-source", job.info)
+                    producer.produce("jobs-source", msg)
                     logger.info("Job to collect new data from source was sent")
                 elif job.type == "nlp":
-                    producer.produce("jobs-nlp", job.info)
+                    producer.produce("jobs-nlp", msg)
                     logger.info("Job to execute a new nlp process was sent")
                 else:
                     logger.warning(f"Job w. type {job.type} is not supported yet.")
