@@ -4,5 +4,7 @@ services:
   job-runner:
     build: .
     container_name: job-runner
+    env_file:
+      - ./app/.env
     volumes:
       - ./app:/app
