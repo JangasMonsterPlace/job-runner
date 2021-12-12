@@ -14,11 +14,7 @@ services:
 
     image: docker.elastic.co/logstash/logstash:6.4.0
 
-    command: logstash -f /etc/logstash/conf.d/logstash.conf
-
-    volumes:
-    - ./logstash/logstash.conf:/etc/logstash/conf.d/logstash.conf:ro
-
+    command: logstash -f /logstash.conf
     ports:
     - "9200:9200"
 
@@ -28,4 +24,5 @@ services:
       - ./app/.env
 
     volumes:
-      - ./app/app.log:/app.log
+      - ./app/app.log:/app.log:ro
+      - ./logstash/logstash.conf:/logstash.conf
